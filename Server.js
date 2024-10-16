@@ -13,12 +13,49 @@ const MySQLStore = require('express-mysql-session')(session);
 
 const secret = crypto.randomBytes(64).toString('hex'); // Generates a random 64-byte secret
 
+
+
+
+
 const app = express();
-app.use(cors({
-    origin: [process.env.siteurl, process.env.adminurl],  // Replace with your frontend domain
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true // Allow credentials like cookies, authorization headers
-}));
+
+
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    
+  ];
+  
+  // CORS configuration
+  const corsOptions = {
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error('Not allowed by CORS'));
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD', 'PATCH'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+    credentials: true,
+  };
+  
+  // Apply CORS middleware
+  app.use(cors(corsOptions));
+  
+  // Handle preflight requests
+  app.options('*', cors(corsOptions));
+  
+  // Enable trust proxy
+  app.enable('trust proxy');
+
+
+
+// app.use(cors({
+//     origin: [process.env.siteurl, process.env.adminurl],  // Replace with your frontend domain
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     credentials: true // Allow credentials like cookies, authorization headers
+// }));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
