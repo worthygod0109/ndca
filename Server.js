@@ -93,8 +93,8 @@ const sessionStore = new MySQLStore({
     user: process.env.MYSQL_ADDON_USER,
     password: process.env.MYSQL_ADDON_PASSWORD,
     database: process.env.MYSQL_ADDON_DB,
+    port: process.env.MYSQL_ADDON_PORT,
 });
-
 
 db.connect((err) => {
     if (err) {
@@ -105,11 +105,11 @@ db.connect((err) => {
 });
 // Session middleware setup without a secret (not recommended)
 app.use(session({
-    secret: secret,
-    resave: false,
-    saveUninitialized: true,
+    key: 'session_cookie_name',
+    secret: 'secret',
     store: sessionStore,
-    cookie: { secure: false } // Set to true if using HTTPS
+    resave: false,
+    saveUninitialized: false,
 }));
 
 // Route to handle admin login
@@ -976,7 +976,8 @@ app.get('/team-details/:tournamentid', async (req, res) => {
     }
 });
 // Start the server
-const PORT = process.env.PORT1 || 4000;
+const PORT = 4000;
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-}); 
+});
