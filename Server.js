@@ -84,6 +84,7 @@ const db = mysql.createConnection({
     user: process.env.user,
     password: process.env.password,
     database: process.env.database,
+    port: process.env.port,
 });
 
 db.connect((err) => {
@@ -104,7 +105,7 @@ app.use(session({
 // Route to handle admin login
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    
+
 
     const query = 'SELECT * FROM admin_login WHERE BINARY username = ? AND BINARY password = ?';
     db.query(query, [username, password], (err, results) => {
@@ -965,7 +966,7 @@ app.get('/team-details/:tournamentid', async (req, res) => {
     }
 });
 // Start the server
-const PORT = process.env.PORT;
+const PORT = process.env.PORT1;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 }); 
