@@ -80,12 +80,14 @@ const upload = multer({
 
 // MySQL connection
 const db = mysql.createConnection({
-    host: process.env.host,
-    user: process.env.user,
-    password: process.env.password,
-    database: process.env.database,
-  port: process.env.port || 3306
+    host: process.env.MYSQL_ADDON_HOST,
+    user: process.env.MYSQL_ADDON_USER,
+    password: process.env.MYSQL_ADDON_PASSWORD,
+    database: process.env.MYSQL_ADDON_DB,
+    port: process.env.MYSQL_ADDON_PORT || 3306 // Optional: Set a default if not provided
 });
+
+
 
 db.connect((err) => {
     if (err) {
