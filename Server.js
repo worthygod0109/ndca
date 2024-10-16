@@ -81,18 +81,18 @@ const upload = multer({
 
 // MySQL connection
 const db = mysql.createConnection({
-    host: process.env.MYSQL_ADDON_HOST || btxa9fo67nuzlvoa06ua-mysql.services.clever-cloud.com,
-    user: process.env.MYSQL_ADDON_USER || ukxtg3f9z6y7sqzh,
-    password: process.env.MYSQL_ADDON_PASSWORD || lfEKscPK5QSmRUG8h7et,
-    database: process.env.MYSQL_ADDON_DB || btxa9fo67nuzlvoa06ua,
+    host: process.env.MYSQL_ADDON_HOST || "btxa9fo67nuzlvoa06ua-mysql.services.clever-cloud.com",
+    user: process.env.MYSQL_ADDON_USER || "ukxtg3f9z6y7sqzh",
+    password: process.env.MYSQL_ADDON_PASSWORD || "lfEKscPK5QSmRUG8h7et",
+    database: process.env.MYSQL_ADDON_DB || "btxa9fo67nuzlvoa06ua",
     port: process.env.MYSQL_ADDON_PORT || 3306 // Optional: Set a default if not provided
 });
 
 const sessionStore = new MySQLStore({
-    host: process.env.MYSQL_ADDON_HOST || btxa9fo67nuzlvoa06ua-mysql.services.clever-cloud.com,
-    user: process.env.MYSQL_ADDON_USER || ukxtg3f9z6y7sqzh,
-    password: process.env.MYSQL_ADDON_PASSWORD || lfEKscPK5QSmRUG8h7et,
-    database: process.env.MYSQL_ADDON_DB || btxa9fo67nuzlvoa06ua,
+    host: process.env.MYSQL_ADDON_HOST || "btxa9fo67nuzlvoa06ua-mysql.services.clever-cloud.com",
+    user: process.env.MYSQL_ADDON_USER || "ukxtg3f9z6y7sqzh",
+    password: process.env.MYSQL_ADDON_PASSWORD || "lfEKscPK5QSmRUG8h7et",
+    database: process.env.MYSQL_ADDON_DB || "btxa9fo67nuzlvoa06ua",
     port: process.env.MYSQL_ADDON_PORT || 3306 ,
 });
 
