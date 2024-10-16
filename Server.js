@@ -104,6 +104,7 @@ app.use(session({
 // Route to handle admin login
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
+    
 
     const query = 'SELECT * FROM admin_login WHERE BINARY username = ? AND BINARY password = ?';
     db.query(query, [username, password], (err, results) => {
