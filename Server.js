@@ -9,6 +9,7 @@ const fs = require("fs");
 const nodemailer = require('nodemailer');
 const { error } = require("console");
 const session = require('express-session'); 
+const MySQLStore = require('express-mysql-session')(session);
 
 const secret = crypto.randomBytes(64).toString('hex'); // Generates a random 64-byte secret
 
@@ -87,6 +88,12 @@ const db = mysql.createConnection({
     port: process.env.MYSQL_ADDON_PORT || 3306 // Optional: Set a default if not provided
 });
 
+const sessionStore = new MySQLStore({
+    host: process.env.MYSQL_ADDON_HOST,
+    user: process.env.MYSQL_ADDON_USER,
+    password: process.env.MYSQL_ADDON_PASSWORD,
+    database: process.env.MYSQL_ADDON_DB,
+});
 
 
 db.connect((err) => {
@@ -98,9 +105,10 @@ db.connect((err) => {
 });
 // Session middleware setup without a secret (not recommended)
 app.use(session({
-    secret: secret, // Set a secret key (change this to something more secure in production)
+    secret: secret,
     resave: false,
     saveUninitialized: true,
+    store: sessionStore,
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 
