@@ -24,6 +24,7 @@ const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:3001',
     'https://ondca.vercel.app',
+    'https://frondca1.vercel.app',
 
     
   ];
@@ -365,13 +366,13 @@ app.post('/add-team', upload.fields([{ name: 'teamLogo', maxCount: 1 }, { name: 
             let transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: `process.env.emailuser`,
-                    pass: `process.env.emailpass` // Use environment variables for sensitive data
+                    user: process.env.emailuser,
+                    pass: process.env.emailpass // Use environment variables for sensitive data
                 }
             });
 
             mailOptions = {
-                from: `process.env.emailfrom`,
+                from: process.env.emailfrom,
                 to: email,
                 subject: 'Your Team Registration In Ndca Details',
                 html: `
